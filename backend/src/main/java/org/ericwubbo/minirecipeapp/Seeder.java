@@ -30,8 +30,8 @@ public class Seeder implements CommandLineRunner {
             pancakes.addIngredients(Set.of(pancakeMilk, pancakeFlour));
 
             var waffles = new Recipe("Waffles");
-            var waffleMilk = new RecipeIngredient(pancakes, milk, 150, Unit.MILLILITRES);
-            var waffleFlour = new RecipeIngredient(pancakes, flour, 300, Unit.GRAMS);
+            var waffleMilk = new RecipeIngredient(waffles, milk, 150, Unit.MILLILITRES);
+            var waffleFlour = new RecipeIngredient(waffles, flour, 300, Unit.GRAMS);
             waffles.addIngredients(Set.of(waffleFlour, waffleMilk));
 
             recipeRepository.saveAll(List.of(pancakes, waffles));

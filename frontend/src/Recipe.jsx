@@ -13,7 +13,22 @@ const Recipe = () => {
     });
   }, []);
 
-  return <>{recipe && <h1>{recipe.title}</h1>}</>;
+  return (
+    <>
+      {recipe && (
+        <>
+          <h1>{recipe.title}</h1>
+          <ul>
+            {recipe.ingredients.map((ingredient) => (
+              <li key={ingredient.id}>
+                {ingredient.quantity} {ingredient.unit} {ingredient.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </>
+  );
 };
 
 export default Recipe;
