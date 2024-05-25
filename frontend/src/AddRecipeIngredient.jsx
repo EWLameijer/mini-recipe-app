@@ -1,60 +1,39 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AddRecipeIngredient = ({
   addToIngredients,
   availableIngredients,
   availableUnits,
 }) => {
-  const [ingredient, setIngredient] = useState(availableIngredients[0]);
-  const [unit, setUnit] = useState(availableUnits[0]);
-  const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    setIngredient(availableIngredients[0]);
-    console.log("setting", availableIngredients[0]);
-  }, [availableIngredients]); // [] sets once, but that is not enough
-
-  // const updateName = (event) => {
-  //   setNewName(event.target.value);
-  // };
+  const [recipeIngredient, setRecipeIngredient] = useState({
+    id: availableIngredients[0].id,
+    name: availableIngredients[0].name,
+    unit: availableUnits[0],
+    quantity: 0,
+  });
 
   const submit = () => {
-    console.log("ingredient:", ingredient);
-    console.table(ingredient);
-    console.log("unit:", unit);
-    console.log("quanti:", quantity);
-    addToIngredients({
-      name: ingredient.name,
-      id: ingredient.id,
-      unit,
-      quantity,
-    });
-    setIngredient(availableIngredients[0]);
+    addToIngredients({ ...recipeIngredient });
   };
 
-  const updateIngredient = (event) => {
-    const targetId = event.target.value;
-    const newIngredient = availableIngredients.find(
-      (elem) => elem.id == targetId
-    );
-    setIngredient(newIngredient);
+  const update = (event) => {
+    const { name, value } = event.target;
+    const extraProperty =
+      name === "id"
+        ? {
+            name: availableIngredients.find(
+              (ingredient) => ingredient.id == value
+            ).name,
+          }
+        : {};
+    const target = { ...recipeIngredient, ...extraProperty, [name]: value };
+    setRecipeIngredient(target);
   };
-
-  const updateUnit = (event) => {
-    setUnit(event.target.value);
-  };
-
-  console.log("avin", availableIngredients);
-  //console.log("in", ingredient);
-  // setIngredient(availableIngredients[0]);
-  // console.log("in2", ingredient);
-
-  // hmmm... what if the value cannot be an object?
 
   return (
     <>
-      <select value={ingredient.id} onChange={updateIngredient}>
+      <select value={recipeIngredient.id} name="id" onChange={update}>
         {availableIngredients.map((ing) => (
           <option key={ing.id} value={ing.id}>
             {ing.name}
@@ -64,10 +43,11 @@ const AddRecipeIngredient = ({
       <input
         type="number"
         placeholder="quantity"
-        value={quantity}
-        onChange={(event) => setQuantity(event.target.value)}
+        value={recipeIngredient.quantity}
+        name="quantity"
+        onChange={update}
       />
-      <select value={unit.name} onChange={updateUnit}>
+      <select value={recipeIngredient.unit} onChange={update} name="unit">
         {availableUnits.map((unit) => (
           <option key={unit} value={unit}>
             {unit}

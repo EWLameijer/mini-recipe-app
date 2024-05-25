@@ -38,7 +38,6 @@ const AddRecipe = () => {
 
   const addToIngredients = (ingredient) => {
     setIngredients([...ingredients, ingredient]);
-    console.log([...ingredients, ingredient]);
   };
 
   const submit = (event) => {
