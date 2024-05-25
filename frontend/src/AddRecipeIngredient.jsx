@@ -14,14 +14,13 @@ const AddRecipeIngredient = ({
 
   const submit = () => {
     const name = availableIngredients.find(
-      (ingredient) => ingredient.id === recipeIngredient.id
+      (ingredient) => ingredient.id == recipeIngredient.id
     ).name;
     addToIngredients({ ...recipeIngredient, name });
   };
 
   const update = (event) => {
-    const { name, value: valueAsString } = event.target;
-    const value = name === "id" ? parseInt(valueAsString) : valueAsString;
+    const { name, value } = event.target;
     const target = { ...recipeIngredient, [name]: value };
     setRecipeIngredient(target);
   };
