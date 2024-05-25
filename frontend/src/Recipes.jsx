@@ -21,6 +21,7 @@ const Recipes = () => {
 
   return (
     <>
+      <h1>Mini-recipe-app</h1>
       <AddRecipe addToList={submit} />
       <ul>
         {recipes.map((recipe) => (

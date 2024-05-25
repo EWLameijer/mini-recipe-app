@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/ingredients")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:5173")
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
 

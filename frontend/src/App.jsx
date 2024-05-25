@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
 import Recipes from "./Recipes.jsx";
+import Ingredients from "./Ingredients.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => (
-  <>
-    <h1>Mini-recipe-app</h1>
-    <Recipes />;
-  </>
+  <Router>
+    <Routes>
+      <Route path="/" element={<Recipes />} />
+      <Route path="/ingredients" element={<Ingredients />} />
+    </Routes>
+  </Router>
 );
 
 export default App;
