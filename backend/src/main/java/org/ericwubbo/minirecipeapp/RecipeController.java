@@ -16,19 +16,19 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
 
     @GetMapping
-    public List<Recipe> getAll() {
-        return recipeRepository.findAll();
+    public List<RecipeDto> getAll() {
+        return recipeRepository.findAll().stream().map(RecipeDto::from).toList();
     }
 
     @GetMapping("{id}")
-    public Optional<Recipe> getById(@PathVariable long id) {
-        return recipeRepository.findById(id);
+    public Optional<RecipeDto> getById(@PathVariable long id) {
+        return recipeRepository.findById(id).map(RecipeDto::from);
     }
 
     @PostMapping
-    public ResponseEntity<Recipe> create(@RequestBody Recipe recipe, UriComponentsBuilder ucb){
+    public ResponseEntity<RecipeDto> create(@RequestBody Recipe recipe, UriComponentsBuilder ucb) {
         recipeRepository.save(recipe);
         var uri = ucb.path("api/v1/recipes/{id}").buildAndExpand(recipe.getId()).toUri();
-        return ResponseEntity.created(uri).body(recipe);
+        return ResponseEntity.created(uri).body(RecipeDto.from(recipe));
     }
 }

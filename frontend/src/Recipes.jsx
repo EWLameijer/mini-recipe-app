@@ -6,9 +6,10 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    axios("http://localhost:8080/api/v1/recipes").then((result) =>
-      setRecipes(result.data)
-    );
+    axios("http://localhost:8080/api/v1/recipes").then((result) => {
+      console.log(result.data);
+      setRecipes(result.data);
+    });
   }, []);
 
   const submit = (title) => {
@@ -25,7 +26,11 @@ const Recipes = () => {
       <AddRecipe addToList={submit} />
       <ul>
         {recipes.map((recipe) => (
-          <li key={recipe.id}>{recipe.title}</li>
+          <li key={recipe.id}>
+            <a href={`http://localhost:5173/recipes/${recipe.id}`}>
+              {recipe.title}
+            </a>
+          </li>
         ))}
       </ul>
     </>
