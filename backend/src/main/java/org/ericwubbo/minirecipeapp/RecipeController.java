@@ -1,10 +1,9 @@
 package org.ericwubbo.minirecipeapp;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +22,13 @@ public class RecipeController {
     @GetMapping("{id}")
     public Optional<Recipe> getById(@PathVariable long id) {
         return recipeRepository.findById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Recipe> create(@RequestBody Recipe recipe, UriComponentsBuilder ucb){
+        recipeRepository.save(recipe);
+        var uri = ucb.path("api/v1/recipes/{id}").buildAndExpand(recipe.getId()).toUri();
+        return ResponseEntity.created(uri).body(recipe);
+
     }
 }
