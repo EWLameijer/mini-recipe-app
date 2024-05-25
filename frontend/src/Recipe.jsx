@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import RecipeIngredients from "./RecipeIngredients";
 
 const Recipe = () => {
   const { id } = useParams();
@@ -19,11 +20,7 @@ const Recipe = () => {
         <>
           <h1>{recipe.title}</h1>
           <ul>
-            {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient.id}>
-                {ingredient.quantity} {ingredient.unit} {ingredient.name}
-              </li>
-            ))}
+            <RecipeIngredients ingredients={recipe.ingredients} />
           </ul>
         </>
       )}
