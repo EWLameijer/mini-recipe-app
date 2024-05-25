@@ -27,9 +27,7 @@ const Recipes = () => {
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.id}>
-            <a href={`http://localhost:5173/recipes/${recipe.id}`}>
-              {recipe.title}
-            </a>
+            <a href={`http://localhost:5173/recipes/${recipe.id}`}></a>
           </li>
         ))}
       </ul>
