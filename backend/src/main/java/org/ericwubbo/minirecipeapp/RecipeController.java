@@ -30,6 +30,5 @@ public class RecipeController {
         recipeRepository.save(recipe);
         var uri = ucb.path("api/v1/recipes/{id}").buildAndExpand(recipe.getId()).toUri();
         return ResponseEntity.created(uri).body(recipe);
-
     }
 }
