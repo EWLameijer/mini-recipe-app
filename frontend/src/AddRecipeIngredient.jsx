@@ -8,26 +8,21 @@ const AddRecipeIngredient = ({
 }) => {
   const [recipeIngredient, setRecipeIngredient] = useState({
     id: availableIngredients[0].id,
-    name: availableIngredients[0].name,
     unit: availableUnits[0],
     quantity: 0,
   });
 
   const submit = () => {
-    addToIngredients({ ...recipeIngredient });
+    const name = availableIngredients.find(
+      (ingredient) => ingredient.id === recipeIngredient.id
+    ).name;
+    addToIngredients({ ...recipeIngredient, name });
   };
 
   const update = (event) => {
-    const { name, value } = event.target;
-    const extraProperty =
-      name === "id"
-        ? {
-            name: availableIngredients.find(
-              (ingredient) => ingredient.id == value
-            ).name,
-          }
-        : {};
-    const target = { ...recipeIngredient, ...extraProperty, [name]: value };
+    const { name, value: valueAsString } = event.target;
+    const value = name === "id" ? parseInt(valueAsString) : valueAsString;
+    const target = { ...recipeIngredient, [name]: value };
     setRecipeIngredient(target);
   };
 
