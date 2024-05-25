@@ -28,9 +28,9 @@ const AddRecipeIngredient = ({
   return (
     <>
       <select value={recipeIngredient.id} name="id" onChange={update}>
-        {availableIngredients.map((ing) => (
-          <option key={ing.id} value={ing.id}>
-            {ing.name}
+        {availableIngredients.map((ingredient) => (
+          <option key={ingredient.id} value={ingredient.id}>
+            {ingredient.name}
           </option>
         ))}
       </select>
