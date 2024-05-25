@@ -8,10 +8,9 @@ const Recipe = () => {
   const [recipe, setRecipe] = useState();
 
   useEffect(() => {
-    axios(`http://localhost:8080/api/v1/recipes/${id}`).then((result) => {
-      console.log(result.data);
-      setRecipe(result.data);
-    });
+    axios(`http://localhost:8080/api/v1/recipes/${id}`).then((result) =>
+      setRecipe(result.data)
+    );
   }, []);
 
   return (
