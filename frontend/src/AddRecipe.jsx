@@ -1,11 +1,20 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const AddRecipe = ({ addToList }) => {
+const AddRecipe = () => {
   const [newTitle, setNewTitle] = useState("");
+  const navigate = useNavigate();
 
   const updateTitle = (event) => {
     setNewTitle(event.target.value);
+  };
+
+  const addToList = (title) => {
+    axios.post("http://localhost:8080/api/v1/recipes", { title }).then(() => {
+      navigate("/");
+    });
   };
 
   const submit = (event) => {
